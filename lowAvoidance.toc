@@ -1,0 +1,16 @@
+## Interface: 20400
+
+## Title: lowAvoidance
+## Notes: Minimal LibDataBroker-based Crushable/Critable display with Hit Table
+## Author: Lowlee
+## Version: 2.4.3.0
+## X-Email: lowlee@lowlee.info
+## X-Category: Misc
+
+## LoadManagers: AddonLoader
+
+LibStub.lua
+CallbackHandler-1.0.lua
+LibDataBroker-1.1\LibDataBroker-1.1.lua
+
+lowAvoidance.lua
