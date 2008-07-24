@@ -101,11 +101,11 @@ function f:PLAYER_LOGIN()
 		talentedcritreduct = select(5, GetTalentInfo(3, 3));
 	end
 
+	UpdateHitTable()
 end
 
 f.UNIT_INVENTORY_CHANGED = UpdateHitTable
 f.UNIT_AURA = UpdateHitTable
-f.ADDON_LOADED = UpdateHitTable
 f.PLAYER_TARGET_CHANGED = UpdateHitTable
 
 local function GetTipAnchor(frame)
