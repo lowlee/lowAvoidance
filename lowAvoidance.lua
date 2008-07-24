@@ -95,10 +95,14 @@ function f:PLAYER_LOGIN()
 
 	-- SoTF
 	if ( class == "DRUID" ) then
-		talentedcritreduct = select(5, GetTalentInfo(2, 16));
+		function self:CHARACTER_POINTS_CHANGED() talentedcritreduct = select(5, GetTalentInfo(2, 16)) end
+		self:RegisterEvent("CHARACTER_POINTS_CHANGED")
+		self:CHARACTER_POINTS_CHANGED()
 	-- SoH
 	elseif ( class == "ROGUE" ) then
-		talentedcritreduct = select(5, GetTalentInfo(3, 3));
+		function self:CHARACTER_POINTS_CHANGED() talentedcritreduct = select(5, GetTalentInfo(3, 3)) end
+		self:RegisterEvent("CHARACTER_POINTS_CHANGED")
+		self:CHARACTER_POINTS_CHANGED()
 	end
 
 	UpdateHitTable()
