@@ -1,17 +1,4 @@
-local L = {
-	["Critable"] = "Critable",
-	["Crushable"] = "Crushable",
-	["Uncrushable"] = "Uncrushable",
-
-	["Defensive Combat Table vs Level"] = "Defensive Combat Table vs Level",
-	["Miss"] = "Miss",
-	["Dodge"] = "Dodge",
-	["Parry"] = "Parry",
-	["Block"] = "Block",
-	["Critical"] = "Critical",
-	["Crushing"] = "Crushing",
-	["Hit"] = "Hit",
-}
+local L = setmetatable({}, {__index=function(t,i) return i end})
 
 local result = {
 	miss     = 0,
