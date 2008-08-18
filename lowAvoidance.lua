@@ -84,14 +84,12 @@ end
 function f:PLAYER_LOGIN()
 	self:RegisterEvent("UNIT_INVENTORY_CHANGED");
 	self:RegisterEvent("UNIT_AURA");
-	self:RegisterEvent("ADDON_LOADED");
 	self:RegisterEvent("PLAYER_TARGET_CHANGED");
 
 	self:UnregisterEvent("PLAYER_LOGIN")
 	self.PLAYER_LOGIN = nil
 
 	local _, class = UnitClass("player");
-	local uncrit = 0;
 
 	-- SoTF
 	if ( class == "DRUID" ) then
