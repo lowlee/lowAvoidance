@@ -6,12 +6,10 @@ local result = {
 	parry    = 0,
 	block    = 0,
 	critical = 0,
-	crushing = 0,
 	hit      = 0,
 }
 
 local talentedcritreduct = 0;
-local targetlevel = 70;
 
 local dataobj = LibStub:GetLibrary("LibDataBroker-1.1"):NewDataObject("lowAvoidance", {icon = "Interface\\Icons\\Ability_Defend", text = "|cffff0000"..L["Critable"].."|r"})
 
