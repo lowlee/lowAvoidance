@@ -1,5 +1,10 @@
-2.4.3.0-alpha
-	Initial Design
+3.3.3.1
+	Long overdue update for LK
+	Removed crushings and only calculate for boss level
+	mobs (player + 3 levels)
+	Updated TOC
 2.4.3.1-alpha
 	Code cleanup and tweaks
-		(Many thanks to Tekkub)
+		(Many thanks to Tekkub)2.4.3.0-alpha
+	Initial Design
+

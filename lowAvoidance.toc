@@ -1,9 +1,9 @@
-## Interface: 20400
+## Interface: 30300
 
 ## Title: lowAvoidance
 ## Notes: Minimal LibDataBroker-based Crushable/Critable display with Hit Table
 ## Author: Lowlee
-## Version: 2.4.3.1
+## Version: 3.3.3.1
 ## X-Email: lowlee@lowlee.info
 ## X-Category: Misc
 

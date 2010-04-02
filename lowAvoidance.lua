@@ -20,20 +20,14 @@ local f = CreateFrame("Frame")
 f:SetScript("OnEvent", function(self, event, ...) if self[event] then return self[event](self, event, ...) end end)
 
 local function UpdateHitTable()
-	local level = UnitLevel("player");
-	targetlevel = level + 3;
-	if UnitExists("target") then targetlevel = UnitLevel("target"); end
-
 	local defbase, defbonus = UnitDefense("player");
-	local defskillmod = (defbase + defbonus - targetlevel * 5) * 0.04;
-	local leveldiff = targetlevel - level;
+	local defskillmod = GetDodgeBlockParryChanceFromDefense() - 0.6;
 
-	result.miss = max(5 + defskillmod, 0);
-	result.dodge = GetDodgeChance() - leveldiff * 0.2;
-	result.parry = GetParryChance() - leveldiff * 0.2;
-	result.block = GetBlockChance() - leveldiff * 0.2;
-	result.critical = max(5 - defskillmod - talentedcritreduct - GetCombatRatingBonus(CR_CRIT_TAKEN_MELEE), 0);
-	result.crushing = max(10 * leveldiff - 15, 0);
+	result.miss = math.max(5 + defskillmod, 0);
+	result.dodge = math.max(0, GetDodgeChance() - 0.6);
+	result.parry = math.max(0, GetParryChance() - 0.6);
+	result.block = math.max(0, GetBlockChance() - 0.6);
+	result.critical = math.max(5 - defskillmod - talentedcritreduct - GetCombatRatingBonus(CR_CRIT_TAKEN_MELEE), 0);
 	result.hit = 0;
 
 	local mainhand = GetInventoryItemLink("player", 16);
@@ -47,7 +41,9 @@ local function UpdateHitTable()
 	local offhand = GetInventoryItemLink("player", 17);
 	if not offhand then result.block = 0; else
 		local _, _, _, _, _, _, _, _, offhandtype = GetItemInfo(offhand);
-		if offhandtype ~= "INVTYPE_SHIELD" then result.block = 0; end
+		if offhandtype ~= "INVTYPE_SHIELD" then
+			result.block = 0;
+		end
 	end
 
 	local leftover = 100;
@@ -67,17 +63,12 @@ local function UpdateHitTable()
 	result.critical = min(result.critical, leftover);
 	leftover = leftover - result.critical;
 
-	result.crushing = min(result.crushing, leftover);
-	leftover = leftover - result.crushing;
-
 	result.hit = leftover;
 
 	if result.critical > 0 then
 		dataobj.text = "|cffff0000"..L["Critable"].."|r";
-	elseif result.crushing > 0 then
-		dataobj.text =  "|cffff8000"..L["Crushable"].."|r";
 	else
-		dataobj.text = "|cff00ff00"..L["Uncrushable"].."|r";
+		dataobj.text = "|cff00ff00"..L["Uncritable"].."|r";
 	end
 end
 
@@ -128,7 +119,7 @@ function dataobj.OnEnter(self)
 	GameTooltip:AddLine("lowAvoidance")
 	GameTooltip:AddLine(" ")
 
-	GameTooltip:AddLine(L["Defensive Combat Table vs Level"].." "..targetlevel)
+	GameTooltip:AddLine(L["Defensive Combat Table vs Boss Level Mob"])
 	GameTooltip:AddLine(" ")
 
 	GameTooltip:AddDoubleLine(L["Miss"], string.format("%.2f%%", result.miss))
@@ -136,7 +127,6 @@ function dataobj.OnEnter(self)
 	GameTooltip:AddDoubleLine(L["Parry"], string.format("%.2f%%", result.parry))
 	GameTooltip:AddDoubleLine(L["Block"], string.format("%.2f%%", result.block))
 	GameTooltip:AddDoubleLine(L["Critical"], string.format("%.2f%%", result.critical))
-	GameTooltip:AddDoubleLine(L["Crushing"], string.format("%.2f%%", result.crushing))
 	GameTooltip:AddDoubleLine(L["Hit"], string.format("%.2f%%", result.hit))
 
 	GameTooltip:Show()
